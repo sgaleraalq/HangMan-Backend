@@ -1,40 +1,23 @@
-from fastapi import FastAPI, HTTPException, Depends, status
-from pydantic import BaseModel
+from fastapi import APIRouter, HTTPException, Depends, status
+from ..password.password_management import hashing_password
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 
-login_router = FastAPI()
+from ..user import User, UserAuth, model_db
 
-model_db = {
-    "sgalera":{
-        "user_name" :   "sgalera",
-        "password"  :   "whatever",
-        "name"      :   "Sergio",
-        "surname"   :   "Galera",
-        "email"     :   "sergiogalera1997@gmail.com"
-    },
-    "xgalera":{
-        "user_name" :   "xgalera",
-        "password"  :   "whatever2",
-        "name"      :   "Xabier",
-        "surname"   :   "Galera",
-        "email"     :   "xabigalera@gmail.com"
-    }
-}
+login = APIRouter(prefix="/login")
 
-class User(BaseModel):
-    id: int
-    user_name: str
-    password: str
-    name: str
-    surname: str
-    email: str
-
-@login_router.get("/users_db")
-async def get_users():
-    return model_db
-
-@login_router.post("/login")
+# Make Log In
+@login.post("/")
 async def log_in(form: OAuth2PasswordRequestForm = Depends()):
     user_info = model_db.get(form.username)
+
+    if not user_info:
+        raise HTTPException(status_code=400, detail="Incorrect username")
     
+    user = UserAuth(**user_info)
+    hashed_password = hashing_password(form.password)
+
+    if hashed_password != hashing_password(user.hashed_password):
+        raise HTTPException(status_code=400, detail="Incorrect password")
+
     return user_info
