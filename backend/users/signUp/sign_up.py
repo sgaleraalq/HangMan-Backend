@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
-from ..user import User, model_db
-from ..password.password_management import hashing_password
+from users.user import User, model_db
+from users.auth.password import hashing_password
 
 signup = APIRouter(prefix="/signup")
 

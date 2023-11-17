@@ -1,8 +1,7 @@
 from fastapi import APIRouter, HTTPException, Depends, status
-from ..password.password_management import hashing_password
+from users.auth.password import hashing_password
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
-
-from ..user import User, UserAuth, model_db
+from users.user import User, UserAuth, model_db
 
 login = APIRouter(prefix="/login")
 

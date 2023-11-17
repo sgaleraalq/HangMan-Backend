@@ -1,8 +1,15 @@
 from passlib.context import CryptContext
+from jose import JWTError, jwt
+from pydantic import BaseModel
+
 
 ALGORITHM = "HS256"
 SECRET_STRING = "thisisasecretstringaakjdajfa·$asdf)=7af8shfa098fp8fp F!f2u90fasdf&"
 
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
 
 pwd_context  = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -12,3 +19,4 @@ def hashing_password(plain_password: str):
 
 def verify_password(plain_password: str, hashed_password:str):
     return pwd_context.verify(plain_password, hashed_password)
+
