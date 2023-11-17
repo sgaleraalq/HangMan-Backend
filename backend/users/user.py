@@ -29,3 +29,8 @@ class User(BaseModel):
 
 class UserAuth(User):
     hashed_password: str
+
+
+def search_user(database, username:str):
+    if username in database:
+        return UserAuth(**database[username])
