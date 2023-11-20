@@ -21,7 +21,7 @@ model_db = {
 
 
 class User(BaseModel):
-    id: int
+    id: str | None
     user_name: str
     email: str
 

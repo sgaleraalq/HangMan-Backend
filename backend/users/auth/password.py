@@ -4,7 +4,7 @@ from pydantic import BaseModel
 
 
 ALGORITHM = "HS256"
-SECRET_STRING = "thisisasecretstringaakjdajfa·$asdf)=7af8shfa098fp8fp F!f2u90fasdf&"
+SECRET_STRING = "thisisasecretstringaakjdajfa·$asdf)=7af8shfa098fp8fpÇ·!f2u90fasdf&"
 
 
 class Token(BaseModel):
