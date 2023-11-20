@@ -23,8 +23,6 @@ model_db = {
 class User(BaseModel):
     id: int
     user_name: str
-    name: str
-    surname: str
     email: str
 
 class UserAuth(User):
