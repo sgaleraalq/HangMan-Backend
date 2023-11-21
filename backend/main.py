@@ -9,6 +9,7 @@ app.include_router(log_in.login)
 app.include_router(sign_up.signup)
 app.include_router(users_info.users_info_router)
 
+
 @app.get("/")
 async def root():
     return "Hi, this is just a simple backend for user auth"

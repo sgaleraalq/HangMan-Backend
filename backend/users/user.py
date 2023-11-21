@@ -1,3 +1,4 @@
+from typing import Dict
 from pydantic import BaseModel
 
 model_db = {
@@ -19,15 +20,15 @@ model_db = {
     }
 }
 
-
 class User(BaseModel):
-    id: str | None
     user_name: str
-    email: str
+    email: str | None
+
+class UserDB(BaseModel):
+    user_info: Dict[str, User]
 
 class UserAuth(User):
     hashed_password: str
-
 
 def search_user(database, username:str):
     if username in database:

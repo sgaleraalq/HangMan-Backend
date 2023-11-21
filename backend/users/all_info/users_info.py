@@ -1,5 +1,6 @@
 from fastapi import APIRouter
-from client.connect_client import users_db_client
+from client.connect_client import client
+
 
 users_info_router = APIRouter(
     prefix="/users",
@@ -9,5 +10,13 @@ users_info_router = APIRouter(
 
 @users_info_router.get("/")
 async def get_users():
-    users = users_db_client["hangman"]["users"]
-    return users.find()
+    users_collection = client["hangman"]["users"]
+    
+    # Obtén todos los documentos como una lista
+    users_list = list(users_collection.find())
+
+    # Convierte ObjectId a str en cada documento
+    for user in users_list:
+        user["_id"] = str(user["_id"])
+
+    return users_list
