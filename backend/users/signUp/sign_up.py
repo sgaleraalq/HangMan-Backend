@@ -1,8 +1,8 @@
-from users.schemas.user import user_schema
 from fastapi import APIRouter, HTTPException, status
 from users.auth.password import hashing_password
-from client.connect_client import client
 from users.all_info.searches import search_user
+from users.schemas.user import user_schema
+from client.connect_client import client
 from users.user import User
 
 signup = APIRouter(prefix="/signup")
@@ -21,6 +21,5 @@ async def sign_up(user: User):
 
     id = client.users.insert_one(user_dict).inserted_id
     new_user = user_schema(client.users.find_one({"_id":id}))
-    print(new_user)
 
     return User(**new_user)
