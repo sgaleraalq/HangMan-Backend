@@ -8,7 +8,7 @@ from users.user import User
 signup = APIRouter(prefix="/signup")
 
 
-@signup.post("/", response_model=dict, status_code=201)
+@signup.post("/", response_model=User, status_code=201)
 async def sign_up(user: User):    
     # Check if user is already in the database
     if type(search_user("email", user.email)) == User or type(search_user("user_name", user.user_name)) == User:
@@ -21,5 +21,6 @@ async def sign_up(user: User):
 
     id = client.users.insert_one(user_dict).inserted_id
     new_user = user_schema(client.users.find_one({"_id":id}))
+    print(new_user)
 
     return User(**new_user)
