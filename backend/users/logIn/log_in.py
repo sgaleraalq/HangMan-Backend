@@ -1,3 +1,4 @@
+from client.connect_client import client
 from fastapi import APIRouter, HTTPException, Depends, status
 from users.auth.password import hashing_password
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
@@ -6,9 +7,11 @@ from users.user import User
 login = APIRouter(prefix="/login")
 
 # Make Log In
-# @login.post("/")
-# async def log_in(form: OAuth2PasswordRequestForm = Depends()):
-#     user_info = model_db.get(form.username)
+@login.post("/")
+async def log_in(form: OAuth2PasswordRequestForm = Depends()):
+    user_info = client.users.find_one({"user_name":form.username})
+
+    return user_info
 
 #     if not user_info:
 #         raise HTTPException(status_code=400, detail="Incorrect username")
