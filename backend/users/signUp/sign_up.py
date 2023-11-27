@@ -16,7 +16,8 @@ async def sign_up(user: User):
             status_code = status.HTTP_409_CONFLICT,
             detail="User already in the database"
         )
-
+        
+    user.password = hashing_password(user.password)
     user_dict = dict(user)
 
     id = client.users.insert_one(user_dict).inserted_id
