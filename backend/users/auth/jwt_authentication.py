@@ -7,7 +7,7 @@ from users.all_info.searches import search_user
 
 ALGORITHM = "HS256"
 SECRET_KEY = "añabP)YOHI^$UT^)J=)(/(&TGJKBN:NKLY/&RfyPOPKHgoih"
-ACCESS_TOKEN_DURATION = 1
+ACCESS_TOKEN_DURATION = 12
 
 oauth2 = OAuth2PasswordBearer(tokenUrl="login")
 
