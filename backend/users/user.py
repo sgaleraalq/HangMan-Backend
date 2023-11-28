@@ -5,4 +5,4 @@ class User(BaseModel):
     name: str
     email: str
     password: str
-    disabled: bool = False | True
+    disabled: bool | None = None
