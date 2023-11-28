@@ -5,9 +5,9 @@ from users.all_info import users_info
 
 app = FastAPI()
 
-app.include_router(log_in.login)
-app.include_router(sign_up.signup)
-app.include_router(users_info.users_info_router)
+app.include_router(log_in.router)
+app.include_router(sign_up.router)
+app.include_router(users_info.router)
 
 
 @app.get("/")

@@ -5,13 +5,13 @@ from users.schemas.user import user_schema
 from client.connect_client import client
 from users.user import User
 
-signup = APIRouter(prefix="/signup")
+router = APIRouter(prefix="/auth")
 
 
-@signup.post("/", response_model=User, status_code=201)
+@router.post("/signup", response_model=User, status_code=status.HTTP_201_CREATED)
 async def sign_up(user: User):    
     # Check if user is already in the database
-    if type(search_user("email", user.email)) == User or type(search_user("user_name", user.user_name)) == User:
+    if (type(search_user("email", user.email)) == User) or (type(search_user("user_name", user.user_name)) == User):
         raise HTTPException(
             status_code = status.HTTP_409_CONFLICT,
             detail="User already in the database"
@@ -20,7 +20,7 @@ async def sign_up(user: User):
     user.password = hashing_password(user.password)
     user_dict = dict(user)
 
-    id = client.users.insert_one(user_dict).inserted_id
-    new_user = user_schema(client.users.find_one({"_id":id}))
+    id = client.hangman.users.insert_one(user_dict).inserted_id
+    new_user = user_schema(client.hangman.users.find_one({"_id":id}))
 
     return User(**new_user)
