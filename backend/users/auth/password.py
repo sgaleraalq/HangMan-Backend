@@ -1,9 +1,6 @@
 from passlib.context import CryptContext
 from users.user import User
 
-ALGORITHM = "HS256"
-SECRET_KEY = "añabP)YOHI^$UT^)J=)(/(&TGJKBN:NKLY/&RfyPOPKHgoih"
-
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 def hashing_password(password:str) -> str: return pwd_context.hash(password)
