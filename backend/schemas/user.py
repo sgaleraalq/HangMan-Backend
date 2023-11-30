@@ -12,8 +12,8 @@ def users_schema(users) -> list:
 
 def lobby_schema(lobby) -> dict:
     return {
-        "players":[""],
-        "id": lobby.inserted_id,
+        "id": str(lobby["_id"]),
+        "players":lobby["players"],
         "word": lobby["word"],
         "time": lobby["time"]
     }
