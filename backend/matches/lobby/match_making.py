@@ -22,18 +22,13 @@ async def check_available_games(lobby: Lobby, player: Player):
         result["players"].append(player.user_name)
         new_players = copy.copy(result["players"])
         result = await db.find_one_and_update({"time":lobby.time}, {"$set":{"players": new_players}})
-        result = await db.find_one_and_update({"time":lobby.time}, {"$set":{"rival": True}})
-        return Lobby(**lobby_schema(result))
+        final_lobby = await db.find_one({"_id":result["_id"]})
+        return Lobby(**lobby_schema(final_lobby))
     else:
         return False
 
 async def create_lobby(lobby: Lobby, player: Player):
-    insert_lobby = {
-        "players": [player.user_name],
-        "word": lobby.word,
-        "time": lobby.time,
-        "rival": lobby.rival
-    }
+    insert_lobby = {"players": [player.user_name], "word": lobby.word, "time": lobby.time}
     result = await db.insert_one(insert_lobby)
     return result
 
@@ -55,6 +50,6 @@ async def search_game(data: dict):
 
         while match_maker == False:
             match = await db.find_one({"_id":created_lobby.inserted_id})
-            if type(match) == dict: match_maker = match["rival"]
+            if type(match) == dict and len(match["players"]) == 2: match_maker = True
 
         return Lobby(**lobby_schema(match))
