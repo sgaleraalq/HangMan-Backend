@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, status
 from users.auth.password import hashing_password
 from users.all_info.searches import search_user
-from users.schemas.user import user_schema
+from schemas.user import user_schema
 from client.connect_client import client
 from users.user import User
 

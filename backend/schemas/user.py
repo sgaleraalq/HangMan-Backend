@@ -9,3 +9,11 @@ def user_schema(user) -> dict:
 
 def users_schema(users) -> list:
     return [user_schema(user) for user in users]
+
+def lobby_schema(lobby) -> dict:
+    return {
+        "players":[""],
+        "id": lobby["_id"],
+        "word": lobby["word"],
+        "time": lobby["time"]
+    }
