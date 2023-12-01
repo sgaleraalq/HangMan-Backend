@@ -1,7 +1,7 @@
 from fastapi import FastAPI
-from users.logIn import log_in
-from users.logIn import delete_account
-from users.signUp import sign_up
+from users.operations import log_in
+from users.operations import delete_account
+from users.operations import sign_up
 from users.all_info import users_info
 from matches.lobby import match_making
 

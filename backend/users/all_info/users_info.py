@@ -14,7 +14,7 @@ router = APIRouter(
 
 @router.get("/", response_model=list[User])
 async def get_users():    
-    return users_schema(client.users.find())
+    return users_schema(client.hangman.users.find())
 
 @router.get("/me")
 async def me(user: User = Depends(current_user)):
