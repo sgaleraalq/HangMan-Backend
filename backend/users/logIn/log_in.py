@@ -1,4 +1,4 @@
-from jose import jwt, JWTError
+from jose import jwt
 from datetime import datetime, timedelta
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi import APIRouter, Depends, HTTPException, status
@@ -8,7 +8,6 @@ from users.user import User
 from users.all_info.searches import search_user
 from users.auth.password import verify_password
 from users.auth.jwt_authentication import ACCESS_TOKEN_DURATION, SECRET_KEY, ALGORITHM
-
 
 
 router = APIRouter(prefix="/auth",

@@ -16,7 +16,8 @@ router = APIRouter(
 db = AsyncIOMotorClient(uri).hangman.lobbies
 
 async def check_available_games(lobby: Lobby, player: Player):
-    result = await db.find_one({"time":lobby.time})
+    # Find a lobby that has only 1 player in players list and same time as the one that is being created
+    result = await db.find_one({"time":lobby.time, "players": {"$size": 1}})
     
     if result:
         result["players"].append(player.user_name)
@@ -53,3 +54,13 @@ async def search_game(data: dict):
             if type(match) == dict and len(match["players"]) == 2: match_maker = True
 
         return Lobby(**lobby_schema(match))
+
+
+## MAYBE CREATE A NEW DATA WHICH TAKES THE ID OF THE LOBBY CREATED?
+
+@router.post("/cancel_game")
+async def cancel_game(lobby: Lobby):
+    # TODO still missing deleting the lobby game
+    result = await db.delete_one({"_id":lobby.id})
+
+    return result
