@@ -1,11 +1,8 @@
 from fastapi import APIRouter, HTTPException, status, Depends
-from fastapi.security import OAuth2PasswordRequestForm
-from requests import delete
 
 from users.user import User
 from client.connect_client import client
 from users.auth.jwt_authentication import current_user
-from users.all_info.searches import search_user
 
 router = APIRouter(
     prefix="/auth",

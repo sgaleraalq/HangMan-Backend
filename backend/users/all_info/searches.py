@@ -1,5 +1,4 @@
 
-from fastapi import HTTPException, status
 from schemas.user import user_schema
 from client.connect_client import client
 from users.user import User
