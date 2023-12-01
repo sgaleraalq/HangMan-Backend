@@ -5,7 +5,7 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from matches.lobby.lobby import Lobby
 from matches.lobby.player import Player
 from client.connect_client import uri
-from schemas.user import lobby_schema
+from schemas.schemas import lobby_schema
 
 router = APIRouter(
     prefix="/matchmaking",

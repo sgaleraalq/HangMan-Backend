@@ -1,5 +1,5 @@
 
-from schemas.user import user_schema
+from schemas.schemas import user_schema
 from client.connect_client import client
 from users.user import User
 

@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends
 
 from users.user import User
 from client.connect_client import client
-from schemas.user import users_schema
+from schemas.schemas import users_schema
 from users.auth.jwt_authentication import current_user
 
 
