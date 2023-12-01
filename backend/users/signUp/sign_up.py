@@ -12,7 +12,6 @@ router = APIRouter(prefix="/auth")
 async def sign_up(user: User):
 
     exception = HTTPException(status_code = status.HTTP_409_CONFLICT)
-
     if type(search_user("user_name", user.user_name)) == User:
         exception.detail = f"User \'{user.user_name}\' already in database"
         raise exception
